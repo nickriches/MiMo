@@ -1,0 +1,51 @@
+---
+name: "Cheat Sheet"  
+author: "Nick Riches"  
+output:  
+  html_document  
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(knitr)
+library(kableExtra)
+```
+
+```{r, echo=FALSE}
+
+cats <- c(
+  
+  "Complex Sentences (defined as a sentence with more than one FINITE clause)",
+  "Special types of sentence",
+  "Mood",
+  "Expansions (this refers to whether a Noun Phrase or Verb Complex (which some refer to as \"Verb Phrase\" contains more than one element)",
+  "Searching for particular word classes",
+  "Sentence with negative particles (not/n't)",
+  "Comments and tags (NB contents of tags can be searched)",
+  "Searching by turn length",
+  "Searching by verb form"
+
+  )
+
+search_terms <- c(
+  
+  "has2clauses, has3clauses, has4clauses, has5clauses, hasMultipleClauses, isComplex (i.e. has more than one clause)",
+  "hasPassive, hasRelativePronoun, hasRelativeClause",
+  "isDeclarative, isInterrogative, isQuestion, isImperative, isExclamative",
+  "hasNPexpansion, hasVCexpansion, hasVPexpansion",
+  "hasModalVerb, hasAux, hasPreposition, hasConjunction, etc.",
+  "hasNeg",
+  "hasComment, hasTag, hasTagCONTENTS_OF_TAG",
+  "turn1 (= all turns of length 1), turn2, turn3, turn4, turn5, turn5plus",
+  "hasPresTense/hasPresentTense, hasPastTense, hasPresParticiple/hasPresentParticiple, hasPastParticiple"
+
+  )
+
+df <- cbind.data.frame(cats, search_terms)
+
+kable(df, col.names = c("Linguistic feature","Universal Search String")
+      ) %>%
+  kable_styling(bootstrap_options = "striped", font_size = 18, full_width = T)
+
+```
+NB strings are NOT case-sensitive. Capitals have been added above to make the search terms easier to read, but you do not have to use capitals when conducting searches.
