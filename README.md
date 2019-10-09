@@ -1,5 +1,9 @@
 # MiMo
 
+Please visit [https://nickriches.shinyapps.io/MiMo/](https://nickriches.shinyapps.io/MiMo/) to try out the app. There are full instructions included in the app. It should only take about ten minutes to do some basic analysis.
+
+NB If the app does not work I may have used up all the bandwidth on my shinyapps account. Apologies in advance for this - I don't have the resources to pay for the full professional account.
+
 This github site contains the code for the MiMo language app. To get this up and running, here's what you need to do...
 
 (1) Install R and RStudio on a computer

@@ -16,10 +16,6 @@ library(colourpicker)
 
 
 
-# How to render Rmarkdown in Shiny
-# https://stackoverflow.com/questions/33499651/rmarkdown-in-shiny-application
-# Cool tooltip https://codepen.io/valerie-roske/pen/XmXPbB
-
 shinyApp(
   
   ui <- fluidPage(#theme = "flatly.css",
@@ -100,9 +96,6 @@ shinyApp(
                                        visibility: visible;
                                        }
 
-
-                                       
-
                                        "}))
                                    ),
                                    
@@ -114,164 +107,19 @@ shinyApp(
                           
                           #(2) Syntactic measures tab panel-----
                           tabPanel("(2) Syntactic measures",
-                                   sidebarPanel(
-                                     
-                                     h3("Show norms"),
-                                     
-                                     selectInput(inputId = "collection",
-                                                 label = "Collection",
-                                                 choices = c("PLEASE CHOOSE...",
-                                                             "Eng-NA", "Eng-UK", "KIDEVAL",
-                                                             "Spanish", "French", "German", "Japanese", "EastAsian",
-                                                             "Clinical-MOR", "Biling"),
-                                                 selected = NULL
-                                     ),
-                                     
-                                     selectInput(inputId = "variable",
-                                                 label = "Variable",
-                                                 choices =  c(
-                                                   "MLU in morphemes" = "mlu_m",
-                                                   "MLU in words" = "mlu_w"),
-                                                 selected = "mlu_m"
-                                     ),
-                                     
-                                     numericInput(inputId = "num_utts",
-                                                  label = "Min. utterances",
-                                                  value = 100
-                                     ),
-                                     
-                                     numericInput(inputId = "bin_width",
-                                                  label = "Bin width",
-                                                  value = 10
-                                     ),
-                                     
-                                     sliderInput(inputId = "shading1",
-                                                 label = "Shading",
-                                                 min = 0,
-                                                 max = 0.3,
-                                                 value = 0.1
-                                     ),
-                                     
-                                     sliderInput(inputId = "trim_data1",
-                                                 label = "Trim data?",
-                                                 min = 0,
-                                                 max = 100,
-                                                 value = c(1,100)
-                                     ),
-                                     
-                                     hr(),
-                                     
-                                     h3("Show speaker"),
-                                     uiOutput("speaker_choice"),
-                                     # Copy the line below to make a date selector 
-                                     dateInput("dob", label = h4("Date of Birth")),
-                                     dateInput("dot", label = h4("Date of Test")),
-                                     htmlOutput("age")
-                                     
-                                     # age(from, to) from MESS package
-                                     # fluidRow(column(3, verbatimTextOutput("value")))
-                                     
-                                     
-                                   ),
-                                   
-                                   
-                                   
-                                   
-                                   
-                                   
-                                   
-                                   
-                                   mainPanel(
                                      h3("Table will take a few seconds to appear/refresh..."),
                                      DT::dataTableOutput("table_summaries"),
-                                     br(),
-                                     plotOutput("MLU_plot",
-                                                dblclick = "plot_dblclick",
-                                                brush = brushOpts(
-                                                  id = "plot_brush",
-                                                  resetOnNew = TRUE
-                                                ))
-                                   )
-                          ),
-                          # end of tab panel ----
+                                     br()
+                                  ),  # end of tab panel ----
+
                           
                           
                           
                           
                           #(3) Lexical measures tab panel-----
                           tabPanel("(3) Lexical measures",
-                                   sidebarPanel(
-                                     
-                                     
-                                     
-                                     selectInput(inputId = "collection2",
-                                                 label = "Collection",
-                                                 choices = c("PLEASE CHOOSE...",
-                                                             "Eng-NA", "Eng-UK", "KIDEVAL",
-                                                             "Spanish", "French", "German",
-                                                             "Clinical-MOR", "Biling", "Japanese", "EastAsian"),
-                                                 selected = NULL
-                                     ),
-                                     #
-                                     selectInput(inputId = "variable2",
-                                                 label = "Variable",
-                                                 choices =  c(
-                                                   "HDD" = "hdd",
-                                                   "Type-token ratio" = "ttr"),
-                                                 selected = "hdd"
-                                     ),
-                                     
-                                     numericInput(inputId = "num_utts2",
-                                                  label = "Min. utterances",
-                                                  value = 100
-                                     ),
-                                     
-                                     numericInput(inputId = "bin_width2",
-                                                  label = "Bin width",
-                                                  value = 10
-                                     ),
-                                     
-                                     
-                                     sliderInput(inputId = "shading2",
-                                                 label = "Shading",
-                                                 min = 0,
-                                                 max = 0.3,
-                                                 value = 0.1
-                                     ),
-                                     
-                                     sliderInput(inputId = "trim_data2",
-                                                 label = "Trim data?",
-                                                 min = 0,
-                                                 max = 100,
-                                                 value = c(1,100)
-                                     ),
-                                     
-                                     hr(),
-                                     
-                                     h3("Show speaker"),
-                                     uiOutput("speaker_choice2"),
-                                     # Copy the line below to make a date selector 
-                                     dateInput("dob2", label = h4("Date of Birth")),
-                                     dateInput("dot2", label = h4("Date of Test")),
-                                     htmlOutput("age2")
-                                     
-                                     # age(from, to) from MESS package
-                                     # fluidRow(column(3, verbatimTextOutput("value2")))
-                                     
-                                   ), # end of sidebar panel
-                                   
-                                   mainPanel(
                                      h3("Table will take a few seconds to appear/refresh..."),
-                                     DT::dataTableOutput("table_summaries2"),
-                                     br(),
-                                     plotOutput("diversity_plot",
-                                                dblclick = "plot_dblclick2",
-                                                brush = brushOpts(
-                                                  id = "plot_brush2",
-                                                  resetOnNew = TRUE
-                                                ))
-                                   )
-                                   
+                                     DT::dataTableOutput("table_summaries2")
                           ), # end of tab panel
                           
                           
@@ -305,35 +153,35 @@ shinyApp(
                         
                         colourInput(
                           inputId = "VERB_colour",
-                          label = "Main Verb",
+                          label = "Main Verb (label = VERB)",
                           value = "#FFAB94"
                           # showColour = "background"
                         ),
                         
                         colourInput(
                           inputId = "COPULA_colour",
-                          label = "Copula",
+                          label = "Copula (label = COP.)",
                           value = "#FFAB94"
                           # showColour = "background"
                         ),
                         
                         colourInput(
                           inputId = "AUXILIARY_colour",
-                          label = "Auxiliary Verb",
+                          label = "Auxiliary Verb (label = AUX.)",
                           value = "#FAD4CB"
                           # showColour = "background"
                         ),
                         
                         colourInput(
                           inputId = "PARTICLE_colour",
-                          label = "Particle (e.g. \"to\" in \"to go\")",
+                          label = "Particle e.g. \"to\" in \"to go\" (label = PART.)",
                           value = "#FAD4CB"
                           # showColour = "background"
                         ),
                         
                         colourInput(
                           inputId = "ADV_colour",
-                          label = "Adverb",
+                          label = "Adverb (label = ADV.)",
                           value = "#FAD4CB"
                           # showColour = "background"
                         ),
@@ -344,7 +192,7 @@ shinyApp(
                         
                         colourInput(
                           inputId = "NOUN_colour",
-                          label = "Noun",
+                          label = "Noun (label = NOUN)",
                           value = "#B6B6F5"
                           # showColour = "background"
                         ),
@@ -352,21 +200,21 @@ shinyApp(
                         
                         colourInput(
                           inputId = "DET_colour",
-                          label = "Determiner",
+                          label = "Determiner (label = DET., or DET.poss if possessive)",
                           value = "#ADFFFF"
                           # showColour = "background"
                         ),
                         
                         colourInput(
                           inputId = "ADJ_colour",
-                          label = "Adjective",
+                          label = "Adjective (label = ADJ.)",
                           value = "#ADFFFF"
                           # showColour = "background"
                         ),
                         
                         colourInput(
                           inputId = "PRON_colour",
-                          label = "Pronoun",
+                          label = "Pronoun (label = PRON.)",
                           value = "#99FF69"
                           # showColour = "background"
                         ),
@@ -377,7 +225,7 @@ shinyApp(
                         
                         colourInput(
                           inputId = "PREP_colour",
-                          label = "Prepositions",
+                          label = "Prepositions (label = PREP.)",
                           value = "#FFFF52"
                           # showColour = "background"
                         ),
@@ -388,14 +236,14 @@ shinyApp(
                         
                         colourInput(
                           inputId = "SUB_colour",
-                          label = "Subordinating Conjunction",
+                          label = "Subordinating Conjunction (label = SCONJ.)",
                           value = "#FCAD46"
                           # showColour = "background"
                         ),
                         
                         colourInput(
                           inputId = "COORD_colour",
-                          label = "Coordinating Conjunction",
+                          label = "Coordinating Conjunction (label = CCONJ.)",
                           value = "#FFCD7D"
                           # showColour = "background"
                         ),
@@ -406,14 +254,14 @@ shinyApp(
                         
                         colourInput(
                           inputId = "PUNCT_colour",
-                          label = "Punctuation Character",
+                          label = "Punctuation Character (label = PUNCT.)",
                           value = "#eeeedd"
                           # showColour = "background"
                         ),
                         
                         colourInput(
                           inputId = "INTERJECTION_colour",
-                          label = "Interjection",
+                          label = "Interjection (label = INTJ.)",
                           value = "#C29A72"
                           # showColour = "background"
                         )
@@ -433,7 +281,7 @@ shinyApp(
                                    DT::dataTableOutput("table_coloured_reduced")
                           ), # end of Tab Panel
                           
-                          tabPanel("(2) DIY figure", # DIY figure ----
+                          tabPanel("(2) Plot data", # Plot data ----
                                    
                                    sidebarPanel(
                                      selectInput(inputId = "collection3",
@@ -491,7 +339,7 @@ shinyApp(
                                                placeholder = "Value"),
                                      dateInput("dob3", label = h4("Date of Birth")),
                                      dateInput("dot3", label = h4("Date of Test")),
-                                     htmlOutput("age3")
+                                     htmlOutput("age")
                                    ), # sidebarpanel
                                    
                                    mainPanel(
@@ -591,14 +439,6 @@ shinyApp(
       lang <- tolower(lang)
       
       
-      # INTERRUPT HERE
-      # INTERRUPT HERE
-      # INTERRUPT HERE
-      
-      # #
-      # text <- readtext("4-10-08_no_stars.cha"); lang <- "english"
-      # model <- udpipe_download_model(lang, model_dir = tempdir())
-      # #
       
       str_split_keep_delimiter <- function(string, delV){ #string and delimiter vector
         for(i in 1:length(delV)){
@@ -862,9 +702,9 @@ shinyApp(
         if(wc == "VERB"){result <- add_tool_tip(highlight(paste0("<b>",string,"</b>"), input$VERB_colour), "VERB")}
         else if(wc == "COPULA"){result <- add_tool_tip(highlight(paste0("<b>", string, "</b>"), input$COPULA_colour), "COPULA")}
         # orange
-        else if(wc == "SCONJ"){result <- add_tool_tip(highlight(string, input$SUB_colour), "SUB.CONJ.")}
+        else if(wc == "SCONJ"){result <- add_tool_tip(highlight(string, input$SUB_colour), "SCONJ.")}
         # light orange
-        else if(wc == "CCONJ"){result <- add_tool_tip(highlight(string, input$COORD_colour), "COORD.CONJ.")}
+        else if(wc == "CCONJ"){result <- add_tool_tip(highlight(string, input$COORD_colour), "CCONJ.")}
         # green
         else if(wc == "PRON"){result <- add_tool_tip(highlight(string, input$PRON_colour), "PRON.")}
         # pink
@@ -873,14 +713,14 @@ shinyApp(
         else if(wc == "PART"){result <- add_tool_tip(highlight(string, input$PARTICLE_colour), "PARTICLE")}
         # dark blue
         else if(wc == "NOUN"){result <- add_tool_tip(highlight(string, input$NOUN_colour), "NOUN")}
-        else if(wc == "PROPN"){result <- add_tool_tip(highlight(string, input$NOUN_colour), "NOUN.Prop")}
+        else if(wc == "PROPN"){result <- add_tool_tip(highlight(string, input$NOUN_colour), "PROPN")}
         # cyan
         else if(wc == "DET"){result <- add_tool_tip(highlight(string, input$DET_colour), "DET.")}
         else if(wc == "DET.poss"){result <- add_tool_tip(highlight(string, input$DET_colour), "DET.poss")}
         else if(wc == "ADJ"){result <- add_tool_tip(highlight(string, input$ADJ_colour), "ADJ.")}
         else if(wc == "NUM"){result <- add_tool_tip(highlight(string, input$DET_colour), "NUM.")}
         # brown
-        else if(wc == "INTJ"){result <- add_tool_tip(highlight(string, input$INTERJECTION_colour), "INTERJECTION")}
+        else if(wc == "INTJ"){result <- add_tool_tip(highlight(string, input$INTERJECTION_colour), "INTJ")}
         # yellow
         else if(wc == "ADP"){result <- add_tool_tip(highlight(string, input$PREP_colour), "PREP.")}
         # grey
@@ -1123,210 +963,7 @@ shinyApp(
       return(df)
     })
     
-    # df_childes_mlu ----
-    
-    df_childes_mlu <- reactive({
-      
-      # browser(); one <- 1; one <- 1; one <- 1; one <- 1; one <- 1; one <- 1
-      
-      if(input$collection == "PLEASE CHOOSE...")return(NULL)
-      
-      if(input$collection == "KIDEVAL"){
-        
-        kideval_corpora_id <- c(65, #Bates
-                                60, #Bernstein
-                                71, #Bliss
-                                76, #Bloom70
-                                41, #Bloom73
-                                73, #Braunwald
-                                36, #Brown
-                                29, #Clark
-                                39, #Demetras1
-                                46, #Demetras2
-                                50, #Feldman
-                                43, #Gathercole
-                                64, #Gleason
-                                57, #Hall
-                                31, #Higginson
-                                48, #HSLLD
-                                54, #MacWhinney
-                                47, #McCune
-                                30, #NewEngland
-                                63, #Post
-                                49, #Providence
-                                55, #Sachs
-                                61, #Snow
-                                67, #Supes
-                                66, #Tardif
-                                62, #Valian
-                                52, #VanHouten
-                                32, #VanKleeck
-                                56, #Warren
-                                69) #Weist
-        
-        # df <- get_speaker_statistics(role = "Target_Child")
-        
-        df <- read.csv("speaker_statistics.csv")
-        
-        df <- df[which(df$corpus_id %in% kideval_corpora_id), ]
-        
-      }
-      
-      if(input$collection != "KIDEVAL"){
-        
-        # df <- get_speaker_statistics(collection = input$collection, role = "Target_Child")
-        
-        df <- read.csv("speaker_statistics.csv")
-        
-        df %>% filter(collection_name == input$collection) -> df
-        
-      }
-      
-      df <- as.data.frame(df)
-      
-      df %>% filter(num_utterances >= input$num_utts) -> df
-      
-      df %>% arrange(target_child_age) %>% filter(is.na(target_child_age) == FALSE) -> df
-      
-      age_range <- max(df$target_child_age) - min(df$target_child_age)
-      
-      upper_age_bound <- min(df$target_child_age) + age_range*(input$trim_data1[2]/100)
-      lower_age_bound <- min(df$target_child_age) + age_range*(input$trim_data1[1]/100)
-      
-      df %>%
-        filter(target_child_age >= lower_age_bound) %>%
-        filter(target_child_age <= upper_age_bound) ->
-        df
-      
-      if(input$variable == "mlu_m"){
-        df$mlu <- df$mlu_m
-      }
-      
-      if(input$variable == "mlu_w"){
-        df$mlu <- df$mlu_w
-      }
-      
-      df %>% filter(is.na(mlu) == FALSE) -> df
-      df$mean <- rollapply(df$mlu, mean, width = input$bin_width, partial = TRUE)
-      df$sd <- rollapply(df$mlu, sd, width = input$bin_width, partial = TRUE)
-      df$plus_one <- df$mean + df$sd
-      df$plus_one_point_five <- df$mean + 1.5*df$sd
-      df$minus_one <- df$mean - df$sd
-      df$minus_one_point_five <- df$mean - 1.5*df$sd
-      
-      return(df) 
-      
-    })
-    
-    
-    # df_childes_lex ----
-    df_childes_lex <- reactive({
-      
-      if(input$collection2 == "PLEASE CHOOSE...")return(NULL)
-      
-      if(input$collection2 == "KIDEVAL"){
-        
-        kideval_corpora_id <- c(65, #Bates
-                                60, #Bernstein
-                                71, #Bliss
-                                76, #Bloom70
-                                41, #Bloom73
-                                73, #Braunwald
-                                36, #Brown
-                                29, #Clark
-                                39, #Demetras1
-                                46, #Demetras2
-                                50, #Feldman
-                                43, #Gathercole
-                                64, #Gleason
-                                57, #Hall
-                                31, #Higginson
-                                48, #HSLLD
-                                54, #MacWhinney
-                                47, #McCune
-                                30, #NewEngland
-                                63, #Post
-                                49, #Providence
-                                55, #Sachs
-                                61, #Snow
-                                67, #Supes
-                                66, #Tardif
-                                62, #Valian
-                                52, #VanHouten
-                                32, #VanKleeck
-                                56, #Warren
-                                69) #Weist
-        
-        # df <- get_speaker_statistics(role = "Target_Child")
-        
-        df <- read.csv("speaker_statistics.csv")
-        
-        df <- df[which(df$corpus_id %in% kideval_corpora_id), ]
-        
-      }
-      
-      if(input$collection2 != "KIDEVAL"){
-        
-        # df <- get_speaker_statistics(collection = input$collection2, role = "Target_Child")
-        
-        df <- read.csv("speaker_statistics.csv")
-        
-        df %>% filter(collection_name == input$collection2) -> df
-        
-      }
-      
-      
-      
-      
-      
-      df <- get_speaker_statistics(collection = input$collection2, role = "Target_Child")
-      
-      df <- as.data.frame(df)
-      
-      df %>% filter(num_utterances >= input$num_utts2) -> df
-      
-      df %>% arrange(target_child_age) %>% filter(is.na(target_child_age) == FALSE) -> df
-      
-      age_range <- max(df$target_child_age) - min(df$target_child_age)
-      
-      upper_age_bound <- min(df$target_child_age) + age_range*(input$trim_data2[2]/100)
-      lower_age_bound <- min(df$target_child_age) + age_range*(input$trim_data2[1]/100)
-      
-      df %>%
-        filter(target_child_age >= lower_age_bound) %>%
-        filter(target_child_age <= upper_age_bound) ->
-        df
-      
-      
-      df$hdd <- df$hdd*42 #to obtain ACTUAL HDD
-      
-      df$ttr <- df$num_types/df$num_tokens
-      
-      if(input$variable2 == "hdd"){
-        df %>% filter(is.na(hdd) == FALSE) %>% filter(hdd > 5) -> df
-        df$mean <- rollapply(df$hdd, mean, width = input$bin_width2, partial = TRUE)
-        df$sd <- rollapply(df$hdd, sd, width = input$bin_width2, partial = TRUE)
-        df$plus_one <- df$mean + df$sd
-        df$plus_one_point_five <- df$mean + 1.5*df$sd
-        df$minus_one <- df$mean - df$sd
-        df$minus_one_point_five <- df$mean - 1.5*df$sd
-      }
-      
-      if(input$variable2 == "ttr"){
-        df %>% filter(is.na(ttr) == FALSE) -> df
-        df$mean <- rollapply(df$ttr, mean, width = input$bin_width2, partial = TRUE)
-        df$sd <- rollapply(df$ttr, sd, width = input$bin_width2, partial = TRUE)
-        df$plus_one <- df$mean + df$sd
-        df$plus_one_point_five <- df$mean + 1.5*df$sd
-        df$minus_one <- df$mean - df$sd
-        df$minus_one_point_five <- df$mean - 1.5*df$sd
-      }
-      
-      return(df) 
-      
-    })
-    
-    
+
     
     # df_childes_DIY ----
     
@@ -1422,6 +1059,8 @@ shinyApp(
         df$dv <- df$ttr
       }
       
+      df %>% filter(dv != 0) -> df
+      
       df %>% filter(is.na(dv) == FALSE) -> df
       df$mean <- rollapply(df$dv, mean, width = input$bin_width3, partial = TRUE)
       df$sd <- rollapply(df$dv, sd, width = input$bin_width3, partial = TRUE)
@@ -1434,69 +1073,17 @@ shinyApp(
       
     })
     
-    # Speaker_MLUm ----
-    speaker_mlum = reactive({
-      table() %>% filter(speaker_no_html == input$choose_speaker) -> table_filtered
-      return(mean(table_filtered$`Num Morphs`, na.rm = TRUE))
-    })
-    
-    # Speaker_MLUw ----
-    speaker_mluw = reactive({
-      table() %>% filter(speaker_no_html == input$choose_speaker) -> table_filtered
-      return(mean(table_filtered$`Num Words`, na.rm = TRUE))
-    })
-    
-    # Speaker_HDD ----
-    speaker_hdd = reactive({
-      table_lex() %>% filter(speaker_no_html == input$choose_speaker2) -> table_filtered
-      return(mean(table_filtered$hdd, na.rm = TRUE))
-    })
-    
-    # Speaker_TTR ----
-    speaker_ttr = reactive({
-      table_lex() %>% filter(speaker_no_html == input$choose_speaker2) -> table_filtered
-      return(mean(table_filtered$ttr, na.rm = TRUE))
-    })
-    
-    
-    
-    
-    
-    
-    
-    # xmax_mlu (obtain highest value on x axis)----
-    xmax_mlu <- reactive({
-      return(max(df_childes_mlu()$target_child_age, na.rm = TRUE))
-    })
-    
-    
-    # xmax_hdd (obtain highest value on x axis)----
-    xmax_hdd <- reactive({
-      return(max(df_childes_lex()$target_child_age, na.rm = TRUE))
-    })
     
     # xmax_hdd (obtain highest value on x axis)----
     xmax_DIY <- reactive({
       return(max(df_childes_DIY()$target_child_age, na.rm = TRUE))
     })
     
-    # Speaker_age ----
+
+    # Speaker_age----
     speaker_age <- reactive({
-      age <- age_calc(input$dob, input$dot, units = "months", precise = TRUE)
+      age <- age_calc(input$dob3, input$dot3, units = "months", precise = TRUE)
       return(age)
-      
-    })
-    
-    # Speaker_age2----
-    speaker_age2 <- reactive({
-      age2 <- age_calc(input$dob2, input$dot2, units = "months", precise = TRUE)
-      return(age2)
-    })
-    
-    # Speaker_age3----
-    speaker_age3 <- reactive({
-      age3 <- age_calc(input$dob3, input$dot3, units = "months", precise = TRUE)
-      return(age3)
     })
     
     
@@ -1527,18 +1114,20 @@ shinyApp(
                 escape = FALSE,
                 options = list(paging = FALSE, autoWidth = TRUE, searching = TRUE,
                                search = list(regex = TRUE, scrollX = TRUE)
-                )
-      ) %>% formatStyle("features_coloured","white-space"="nowrap") %>%
+                              )
+      ) %>% formatStyle(columns = c(2), width='100px') %>% 
+        formatStyle("features_coloured","white-space"="nowrap") %>%
         formatStyle("sentence_coloured","white-space"="nowrap") %>%
         formatStyle("verb_form", "white-space"="nowrap") %>%
         formatStyle("has_class", "white-space"="nowrap") %>%
+        formatStyle("neg", "white-space"="nowrap") %>%
         formatStyle("text_comments_extracted", "white-space"="nowrap") %>%
         formatStyle("rel_clause", "white-space" = "nowrap") %>%
         formatStyle("tags", "white-space"="nowrap") %>%
         formatStyle("mood", "white-space"="nowrap") %>%
         formatStyle("VCexpansion", "white-space"="nowrap") %>%
         formatStyle("multipleclauses", "white-space"="nowrap") %>%
-        formatStyle(7, `border-right` = "solid 2px")
+        formatStyle(8, `border-right` = "solid 2px")
     })
     
     
@@ -1652,30 +1241,6 @@ shinyApp(
     ranges <- reactiveValues(x = NULL, y = NULL)
     
     
-    observeEvent(input$plot_dblclick, {
-      brush <- input$plot_brush
-      if (!is.null(brush)) {
-        ranges$x <- c(brush$xmin, brush$xmax)
-        ranges$y <- c(brush$ymin, brush$ymax)
-        
-      } else {
-        ranges$x <- NULL
-        ranges$y <- NULL
-      }
-    })
-    
-    observeEvent(input$plot_dblclick2, {
-      brush <- input$plot_brush2
-      if (!is.null(brush)) {
-        ranges$x <- c(brush$xmin, brush$xmax)
-        ranges$y <- c(brush$ymin, brush$ymax)
-        
-      } else {
-        ranges$x <- NULL
-        ranges$y <- NULL
-      }
-    })
-    
     observeEvent(input$plot_dblclick3, {
       brush <- input$plot_brush3
       if (!is.null(brush)) {
@@ -1689,286 +1254,7 @@ shinyApp(
     })
     
     
-    
-    # MLU_plot ----
-    
-    output$MLU_plot <- renderPlot({
-      
-      req(df_childes_mlu())
-      
-      # browser(); one <- 1; one <- 1; one <- 1; one <- 1; one <- 1; one <- 1
-      
-      m2ym <- function(age_m){
-        year <- floor(age_m/12)
-        month <- floor(age_m - (year*12))
-        return(paste0(year, ";", month))
-      }
-      
-      breakpoints <- function(min,max){
-        seq <- seq(min, max, 1)
-        seq <- unique(floor(seq/3))
-        seq <- seq*3
-        return(seq)
-      }
-      
-      g <- ggplot()
-      
-      g <- g + theme_bw()
-      
-      g <- g + coord_cartesian(xlim = ranges$x, ylim = ranges$y, expand = FALSE)
-      
-      # Do we need this if-then statements?
-      
-      # if(input$variable == "mlu_m"){
-      #   g <- g + geom_point(data = df_childes_mlu(), alpha = 0.1, aes(x = target_child_age, y = mlu_m, size = num_utterances))
-      #   loess_mean <- loess(mean ~ target_child_age, data = df_childes_mlu())
-      #   loess_plus <- loess(plus_one ~ target_child_age, data = df_childes_mlu())
-      #   loess_minus <- loess(minus_one ~ target_child_age, data = df_childes_mlu())
-      # }
-      # 
-      # if(input$variable == "mlu_w"){
-      #   g <- g + geom_point(data = df_childes_mlu(), alpha = 0.1, aes(x = target_child_age, y = mlu_w, size = num_utterances))
-      #   loess_mean <- loess(mean ~ target_child_age, data = df_childes_mlu())
-      #   loess_plus <- loess(plus_one ~ target_child_age, data = df_childes_mlu())
-      #   loess_minus <- loess(minus_one ~ target_child_age, data = df_childes_mlu())
-      # }
-      
-      g <- g + geom_point(data = df_childes_mlu(), alpha = input$shading1, aes(x = target_child_age, y = mlu, size = num_utterances))
-      
-      g <- g + geom_smooth(data = df_childes_mlu(), aes(x = target_child_age, y = mean), linetype = "solid", lwd = 1, se = FALSE, method = "loess")
-      g <- g + geom_smooth(data = df_childes_mlu(), aes(x = target_child_age, y = plus_one), linetype = "dashed", lwd = 1, se = FALSE, method = "loess")
-      g <- g + geom_smooth(data = df_childes_mlu(), aes(x = target_child_age, y = plus_one_point_five), linetype = "dotted", lwd = 1, se = FALSE, method = "loess")
-      g <- g + geom_smooth(data = df_childes_mlu(), aes(x = target_child_age, y = minus_one), linetype = "dashed", lwd = 1, se = FALSE, method = "loess")
-      g <- g + geom_smooth(data = df_childes_mlu(), aes(x = target_child_age, y = minus_one_point_five), linetype = "dotted", lwd = 1, se = FALSE, method = "loess")
-      
-      mean_model <- loess(mean ~ target_child_age, data = df_childes_mlu())
-      plus_one_model <- loess(plus_one ~ target_child_age, data = df_childes_mlu())
-      minus_one_model <- loess(minus_one ~ target_child_age, data = df_childes_mlu())
-      
-      g <- g + theme(axis.text.x  = element_text(angle=90, vjust=0.5))
-      
-      g <- g + scale_x_continuous(breaks = breakpoints(0, xmax_mlu()),         # use these breaks...
-                                  labels = m2ym(breakpoints(0, xmax_mlu()))) # ...with these labels
-      
-      
-      if(input$variable == "mlu_m"){
-        g <- g + labs(title = paste("MLU in morphemes for CHILDES collection", input$collection),
-                      x = "Age (Months;Years)", y = "MLU in morphemes")
-      }
-      
-      if(input$variable == "mlu_w"){
-        g <- g + labs(title = paste("MLU in words for CHILDES collection", input$collection),
-                      x = "Age (Months;Years)", y = "MLU in words")
-      }
-      
-      # 
-      # index_of_closest_variable <- function(var, vec){ # Function for looking up mean
-      #   diff_vec <- abs(var - vec)
-      #   return(which.min(diff_vec))
-      #   }
-      
-      g_subtitle <- "Blue lines show mean, 1 st.dev, and 1.5 st.dev"
-      
-      # Activate this routine if speaker has been selected, and mlum has been chosen as input$variable
-      if(input$variable == "mlu_m" &
-         is.nan(speaker_mlum()) == FALSE &
-         is.null(speaker_mlum()) == FALSE) {
-        mlum_df <- cbind.data.frame(speaker_age(), speaker_mlum())
-        names(mlum_df) <- c("x", "y")
-        
-        mean_for_speaker_age <- predict(mean_model, speaker_age())
-        
-        # df_childes_mlu()$mean[index_of_closest_variable(speaker_age(), df_childes_mlu()$target_child_age)]
-        sd_for_speaker_age <- predict(plus_one_model, speaker_age()) - mean_for_speaker_age
-        
-        z_score <- round((speaker_mlum() - mean_for_speaker_age)/sd_for_speaker_age, 2)
-        
-        perc <- round(pnorm(z_score)*100,0)
-        
-        g <- g + geom_point(data = mlum_df, aes(x =x, y = y, pch = 9, size = 500, colour = "red")) + scale_shape_identity()
-        
-        zp_label <- paste0("z = ", as.character(z_score), ", perc =", perc)
-        
-        g_subtitle <- paste0(g_subtitle, "\nMarker shows participant ", input$choose_speaker, ",", zp_label)
-        
-        
-      }
-      
-      
-      # if(is.nan(speaker_mlu()) == FALSE &
-      #    is.null(speaker_mlu()) == FALSE) {
-      #   
-      #   mluw_df <- cbind.data.frame(speaker_age(), speaker_mluw())
-      #   names(mluw_df) <- c("x", "y")
-      #   
-      #   mean_for_speaker_age <- df_childes_mlu()$mean[index_of_closest_variable(speaker_age(), df_childes_mlu()$target_child_age)]
-      #   sd_for_speaker_age <- df_childes_mlu()$sd[index_of_closest_variable(speaker_age(), df_childes_mlu()$target_child_age)]
-      #   
-      #   z_score <- round((speaker_mluw() - mean_for_speaker_age)/sd_for_speaker_age, 2)
-      #   
-      #   perc <- round(pnorm(z_score)*100,0)
-      #   
-      #   g <- g + geom_point(data = mluw_df, aes(x =x, y = y, pch = 9, size = 500, colour = "red")) + scale_shape_identity()
-      #   
-      #   zp_label <- paste("z =", as.character(z_score), "\nperc =", perc)
-      #   
-      #   g <- g + geom_text(data = mluw_df, aes(x = x, y = y, label = zp_label, colour = "red", hjust=0.5, nudge_y = -0.2))
-      #   
-      # }
-      
-      
-      
-      # Activate this routine if speaker has been selected, and mluw has been chosen as input$variable
-      if(input$variable == "mlu_w" &
-         is.nan(speaker_mluw()) == FALSE &
-         is.null(speaker_mluw()) == FALSE) {
-        mlum_df <- cbind.data.frame(speaker_age(), speaker_mluw())
-        names(mlum_df) <- c("x", "y")
-        
-        mean_for_speaker_age <- predict(mean_model, speaker_age())
-        
-        # df_childes_mlu()$mean[index_of_closest_variable(speaker_age(), df_childes_mlu()$target_child_age)]
-        sd_for_speaker_age <- predict(plus_one_model, speaker_age()) - mean_for_speaker_age
-        
-        z_score <- round((speaker_mlum() - mean_for_speaker_age)/sd_for_speaker_age, 2)
-        
-        perc <- round(pnorm(z_score)*100,0)
-        
-        g <- g + geom_point(data = mlum_df, aes(x =x, y = y, pch = 9, size = 500, colour = "red"), show.legend = F) + scale_shape_identity()
-        
-        zp_label <- paste0("z = ", as.character(z_score), ", perc =", perc)
-        
-        g_subtitle <- paste0(g_subtitle, "\nMarker shows participant ", input$choose_speaker1, ",", zp_label)
-        
-        
-      }
-      
-      g <- g + labs(subtitle = g_subtitle)
-      
-      g
-      
-    })
-    
-    # diversity_plot ----
-    
-    output$diversity_plot <- renderPlot({
-      
-      req(df_childes_lex())
-      
-      m2ym <- function(age_m){
-        year <- floor(age_m/12)
-        month <- floor(age_m - (year*12))
-        return(paste0(year, ";", month))
-      }
-      
-      breakpoints <- function(min,max){
-        seq <- seq(min, max, 1)
-        seq <- unique(floor(seq/3))
-        seq <- seq*3
-        return(seq)
-      }
-      
-      g <- ggplot()
-      
-      g <- g + theme_bw()
-      
-      g <- g + coord_cartesian(xlim = ranges$x, ylim = ranges$y, expand = FALSE)
-      
-      if(input$variable2 == "hdd"){
-        g <- g + geom_point(data = df_childes_lex(), alpha = input$shading2, aes(x = target_child_age, y = hdd, size = num_utterances))
-      }
-      
-      if(input$variable2 == "ttr"){
-        g <- g + geom_point(data = df_childes_lex(), alpha = input$shading2, aes(x = target_child_age, y = ttr, size = num_utterances))
-      }
-      
-      g <- g + geom_smooth(data = df_childes_lex(), aes(x = target_child_age, y = mean), linetype = "solid", lwd = 1, se = FALSE, method = "loess")
-      g <- g + geom_smooth(data = df_childes_lex(), aes(x = target_child_age, y = plus_one), linetype = "dashed", lwd = 1, se = FALSE, method = "loess")
-      g <- g + geom_smooth(data = df_childes_lex(), aes(x = target_child_age, y = plus_one_point_five), linetype = "dotted", lwd = 1, se = FALSE, method = "loess")
-      g <- g + geom_smooth(data = df_childes_lex(), aes(x = target_child_age, y = minus_one), linetype = "dashed", lwd = 1, se = FALSE, method = "loess")
-      g <- g + geom_smooth(data = df_childes_lex(), aes(x = target_child_age, y = minus_one_point_five), linetype = "dotted", lwd = 1, se = FALSE, method = "loess")
-      
-      mean_model <- loess(mean ~ target_child_age, data = df_childes_lex())
-      plus_one_model <- loess(plus_one ~ target_child_age, data = df_childes_lex())
-      minus_one_model <- loess(minus_one ~ target_child_age, data = df_childes_lex())
-      
-      mean_model <- loess(mean ~ target_child_age, data = df_childes_lex())
-      plus_one_model <- loess(plus_one ~ target_child_age, data = df_childes_lex())
-      minus_one_model <- loess(minus_one ~ target_child_age, data = df_childes_lex())
-      
-      g <- g + theme(axis.text.x  = element_text(angle=90, vjust=0.5))
-      
-      g <- g + scale_x_continuous(breaks = breakpoints(0, xmax_hdd()),         # use these breaks...
-                                  labels = m2ym(breakpoints(0, xmax_hdd()))) # ...with these labels
-      
-      
-      if(input$variable2 == "hdd"){
-        g <- g + labs(title = paste("HDD for CHILDES collection", input$collection),
-                      x = "Age (Months;Years)", y = "MLU in morphemes")
-      }
-      
-      if(input$variable2 == "ttr"){
-        g <- g + labs(title = paste("TTR for CHILDES collection", input$collection),
-                      x = "Age (Months;Years)", y = "MLU in words")
-      }
-      
-      g_subtitle <- "Blue lines show mean, 1 st.dev, and 1.5 st.dev"
-      
-      # Activate this routine if speaker has been selected, and mlum has been chosen as input$variable
-      if(input$variable2 == "hdd" &
-         is.nan(speaker_hdd()) == FALSE &
-         is.null(speaker_hdd()) == FALSE) {
-        hdd_df <- cbind.data.frame(speaker_age2(), speaker_hdd())
-        names(hdd_df) <- c("x", "y")
-        
-        mean_for_speaker_age <- predict(mean_model, speaker_age2())
-        
-        # df_childes_mlu()$mean[index_of_closest_variable(speaker_age(), df_childes_mlu()$target_child_age)]
-        sd_for_speaker_age <- predict(plus_one_model, speaker_age2()) - mean_for_speaker_age
-        
-        z_score <- round((speaker_hdd() - mean_for_speaker_age)/sd_for_speaker_age, 2)
-        
-        perc <- round(pnorm(z_score)*100,0)
-        
-        g <- g + geom_point(data = hdd_df, aes(x =x, y = y, pch = 9, size = 500, colour = "red"), show.legend = F) + scale_shape_identity()
-        
-        zp_label <- paste0("z = ", as.character(z_score), ", perc =", perc)
-        
-        g_subtitle <- paste0(g_subtitle, "\nMarker shows participant ", input$choose_speaker2, ",", zp_label)
-        
-      }
-      
-      
-      # Activate this routine if speaker has been selected, and mluw has been chosen as input$variable
-      if(input$variable2 == "ttr" &
-         is.nan(speaker_ttr()) == FALSE &
-         is.null(speaker_ttr()) == FALSE) {
-        ttr_df <- cbind.data.frame(speaker_age2(), speaker_ttr())
-        names(ttr_df) <- c("x", "y")
-        
-        mean_for_speaker_age <- predict(mean_model, speaker_age2())
-        
-        # df_childes_mlu()$mean[index_of_closest_variable(speaker_age(), df_childes_mlu()$target_child_age)]
-        sd_for_speaker_age <- predict(plus_one_model, speaker_age2()) - mean_for_speaker_age
-        
-        z_score <- round((speaker_ttr() - mean_for_speaker_age)/sd_for_speaker_age, 2)
-        
-        perc <- round(pnorm(z_score)*100,0)
-        
-        g <- g + geom_point(data = ttr_df, aes(x =x, y = y, pch = 9, size = 500, colour = "red"), show.legend = F) + scale_shape_identity()
-        
-        zp_label <- paste0("z = ", as.character(z_score), ", perc =", perc)
-        
-        g_subtitle <- paste0(g_subtitle, "\nMarker shows participant ", input$choose_speaker2, ",", zp_label)
-        
-      }
-      
-      g <- g + labs(subtitle = g_subtitle)
-      
-      g
-      
-    })
-    
+
     
     # DIY_plot -----
     output$DIY_plot <- renderPlot({
@@ -2030,15 +1316,15 @@ shinyApp(
       
       if(input$child_name != "" &
          input$value != "" &
-         is.na(predict(mean_model, speaker_age3())) == FALSE)
+         is.na(predict(mean_model, speaker_age())) == FALSE)
         
       {
         
-        mean_for_speaker_age <- predict(mean_model, speaker_age3())
-        sd_for_speaker_age <- predict(plus_one_model, speaker_age3()) - mean_for_speaker_age
+        mean_for_speaker_age <- predict(mean_model, speaker_age())
+        sd_for_speaker_age <- predict(plus_one_model, speaker_age()) - mean_for_speaker_age
         z_score <- round((as.numeric(input$value) - mean_for_speaker_age)/sd_for_speaker_age, 2)
         perc <- round(pnorm(z_score)*100,0)
-        g <- g + geom_point(data = df_childes_DIY(), aes(x = speaker_age3(), y = as.numeric(input$value), pch = 9, size = 500, colour = "red")) + scale_shape_identity()
+        g <- g + geom_point(data = df_childes_DIY(), aes(x = speaker_age(), y = as.numeric(input$value), pch = 9, size = 500, colour = "red")) + scale_shape_identity()
         zp_label <- paste0("z = ", as.character(z_score), ", perc =", perc)
         g_subtitle <- paste0(g_subtitle, "\nMarker shows participant ", input$child_name, ",", zp_label)
       }
@@ -2049,24 +1335,7 @@ shinyApp(
       
     }) # end of output$all plot <- renderPlot...
     
-    # RenderUI speaker_choice for dropdown menu ----
-    
-    output$speaker_choice = renderUI({
-      speaker_list <- append("PLEASE SELECT...", unique(table()$speaker_no_html))
-      selectInput(label = "Choose speaker...", inputId = "choose_speaker",
-                  choices = speaker_list, selected = "PLEASE SELECT...")
-    })
-    
-    
-    # RenderUI speaker_choice2 for dropdown menu ----
-    
-    output$speaker_choice2 = renderUI({
-      speaker_list <- append("PLEASE SELECT...", unique(table()$speaker_no_html))
-      selectInput(label = "Choose speaker...", inputId = "choose_speaker2",
-                  choices = speaker_list, selected = "PLEASE SELECT...")
-    })
-    
-    # RenderUI to output age ----
+
     
     output$age = renderUI({
       
@@ -2077,30 +1346,6 @@ shinyApp(
       }
       
       age <- paste("Age = ", as.character(m2ym(speaker_age())))
-      
-    })
-    
-    output$age2 = renderUI({
-      
-      m2ym <- function(age_m){
-        year <- floor(age_m/12)
-        month <- floor(age_m - (year*12))
-        return(paste0(year, ";", month))
-      }
-      
-      age2 <- paste("Age = ", as.character(m2ym(speaker_age2())))
-      
-    })
-    
-    output$age3 = renderUI({
-      
-      m2ym <- function(age_m){
-        year <- floor(age_m/12)
-        month <- floor(age_m - (year*12))
-        return(paste0(year, ";", month))
-      }
-      
-      age3 <- paste("Age = ", as.character(m2ym(speaker_age3())))
       
     })
     

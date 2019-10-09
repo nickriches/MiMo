@@ -2,15 +2,15 @@
 author: "Nick Riches"
 name: MiMo
 output:
-  pdf_document:
-    toc: yes
-  word_document:
-    toc: yes
   html_document:
     number_sections: no
     toc: yes
     toc_float:
       collapsed: yes
+  word_document:
+    toc: yes
+  pdf_document:
+    toc: yes
 ---
         
 ```{r setup, include=FALSE}
@@ -93,7 +93,7 @@ If you hover the mouse over a word, you will see a "tooltip" showing the grammat
 
 If you enter text in one of the boxes at the top, you can select (or "filter") particular lines
 
-For example, if you type `hasPron` in the big search bar at the top of the screen, it will find all sentences containing pronouns, or if you type `hasCopula` it will find sentences containing the copula (verb "to be" when used as the MAIN VERB). Give it a try!
+For example, if you type `hasPron` in the big search bar at the top of the screen, it will find all sentences containing pronouns, or if you type `hasCop` it will find sentences containing the copula (verb "to be" when used as the MAIN VERB). Give it a try!
 
 You will find a list of search terms in `Cheatsheet` tab.
 
@@ -116,7 +116,7 @@ NB don't scroll too far along, as many of the columns are slightly scary-looking
 <font color = "#911f1f">
 (a) Practice filtering the lines. Type individual words in the small search box above the coloured text. NB you can also search for groups of words, but **this will only work if you type them in the "universal" search bar**
 
-(b) Now practice filtering for word classes. Type `hasPron` and `hasCopula` into the "Universal" search bar (the large bar at the top)
+(b) Now practice filtering for word classes. Type `hasPron` and `hasCop` into the "Universal" search bar (the large bar at the top)
 
 (c) Now practice sorting. Go to the `num_clauses` column, and sort so that the sentences with the most clauses are at the top. </font>
 </font>
@@ -154,7 +154,6 @@ The following characters are utterance-final delimiters:
 1. One or more periods (full stops) in a row, e.g. . .. ... ....
 2. One or more question marks in a row, e.g. ? ?? ??? ????
 3. One or more exclamation marks in a row, e.g. ! !! !!! !!!!
-4. A return (new line) character
 
 Note that the RETURN character is not defined as an utterance-infal delimiter. This means that you do not need to bother to enter RETURN characters. So you could enter all utterances as below without any RETURN character. MiMo would only assume a new line where it identifies an utterance-final delimiter.
 
@@ -189,14 +188,20 @@ You can see that there are two types of filters...
 (1) A "specific" filter which is shown at the top of columns. This only searches inside the column.
 (2) A "universal" filter at the top in the middle. This filter can be used to search for text in ANY column. The universal filters are described in the `Cheat sheet` tab.
 
-All of these filters are blind to case, so they will work if you use upper instead of lower case and vice versa. So `hasPreposition`, `haspreposition` and `HASPREPOSITION` will all do the same thing. Note that for filters to work, you only need to type **the minimum string which identifies a specific filter from a list of all filters**. So you are likely to see the columns being filtered even before you have finished typing them.
+All of these filters are blind to case, so they will work if you use upper instead of lower case and vice versa. So `hasPrep`, `hasprep` and `HASPREP` will all do the same thing. Note that for filters to work, you only need to type **the minimum string which identifies a specific filter from a list of all filters**. So you are likely to see the columns being filtered even before you have finished typing them.
+
+When typing in the universal filter bar, you can search for multiple words from a sentence. For example, typing `cat mouse` will find all the sentences containing the words `cat` and `mouse`. This can be useful for quickly finding sentences of interest. Note that this *only* works in the universal filter bar.
 
 The filters are designed so that you can explore the data. You can do a whole host of things including
 
-(a) Identifying the more complex utterances
-(b) Finding particular structures (e.g. passives)
-(c) Searching for word classes
-(d) Searching for tags you have added (see below)
+(a) Selecting utterances only from a particular speaker
+(b) Identifying the more complex utterances
+(c) Finding particular structures (e.g. passives)
+(d) Searching for word classes
+(e) Search for particular types of verbs, e.g. past tense, infinitives, etc.
+(f) Finding utterances containing particular words
+(g) Finding questions, commands and exclamatives
+(h) Searching for tags you have added (see below)
 
 ## <font color = "red"> PRACTICE 5 - Using filters, PART 2 </font>
 <font color = "#911f1f">
@@ -229,20 +234,40 @@ Now copy and paste this into the MiMo, and look at the `Let's explore!` > `(1) C
 
 ## Language metrics
 
- Now go to `(2) Syntactic measures` . This tab shows you (a) a table with important syntactic metrics (Mean Length of Utterance in words (MLUw), Mean Length of Utterance in Morphemes (MLUm), Mean Number of Finite Clauses per utterance (MNumCl), Mean Length of Turn (MLT)) and (b) a graph showing developmental trends in the CHILDES corpora. To view the CHILDES graph, you'll need to select a `Collection` on the left hand side, and then the graph will become visible. It looks something like this...
+Now go to `(2) Syntactic measures` . This tab shows you (a) a table with important syntactic metrics (Mean Length of Utterance in words (MLUw), Mean Length of Utterance in Morphemes (MLUm), Mean Number of Finite Clauses per utterance (MNumCl),
+ 
+Now go to the `(3) Lexical measures` tab. This contains two measures of lexcical diversity: "HDD", and Type Token Ratio (TTR). HDD stands for "Hypergeometric Distribution Density". It is virtually identical to the VOC-D metric which is calculated by the CLAN language analysis software. For example, McCarthy and Jarvis (2007) found correlations of r = 0.971 between HDD and VOC-D (McCarthy, P.M., Jarvis, S., Vocd: A theoretical and empirical evaluation, *Language Testing*, 2007.[https://doi-org.libproxy.ncl.ac.uk/10.1177/0265532207080767](https://doi-org.libproxy.ncl.ac.uk/10.1177/0265532207080767)).
+ 
+## Plotting data
+
+If you go to `Extra... > (2) Plot data` you can create a graph showing normative data for particular language measures (e.g. MLU and HDD), and you can also show an individual child on that plot.
+
+The graph will look something like this.
 
 ![](mlu_graph.png)
 
 The trend lines show the mean score, plus and minus 1 standard deviation, and plus and minus 1.5 standard deviations. The `Nitty Gritty` section (below) contains information about how these lines have been calculated and drawn.
+
+To plot this kind of graph you need to choose a "Collection" from the sidebar on the left hand side.
+
+![](figure_options.png)
+
+You can also alter
+
+(1) the variable
+(2) the minimum number of child utterances in the corpus (to exclude unreliable corpora where the child does not produce many utterances)
+(3) the "bin" width. For details of what a "bin" is and how it is used see `Nitty Gritty` below. If in any doubt about this, you should leave this at 10, which works pretty well.
+(4) the shading. If you graph looks too dark you can make each dot lighter
+(5) maximum and minimum values using the "Trim" slider. This may be useful if you have extreme values which are influencing the lines of best fit. By trimming these values you can redraw the lines.
 
 ## <font color = "red"> PRACTICE 6 - Exploring CHILDES corpora </font>
 <font color = "#911f1f">
 Load a variety of different corpora to look at developmental trends.
 </font>
 
-In the *Advanced Usage* section below there is further information on how to alter the appearance of the graph, and plot a data point for a particular child.
 
-In addition, you should explore the `(3) Lexical measures` tab. This contains two measure of lexcical diversity: "HDD", and Type Token Ratio (TTR). HDD stands for "Hypergeometric Distribution Density". It is virtually identical to the VOC-D metric which is calculated by the CLAN language analysis software. For example, McCarthy and Jarvis (2007) found correlations of r = 0.971 between HDD and VOC-D (McCarthy, P.M., Jarvis, S., Vocd: A theoretical and empirical evaluation, *Language Testing*, 2007.[https://doi-org.libproxy.ncl.ac.uk/10.1177/0265532207080767](https://doi-org.libproxy.ncl.ac.uk/10.1177/0265532207080767)).
+
+
 
 ## Comments and tags
 
@@ -285,17 +310,6 @@ Copy and paste the above transcript into the text box, and then go to the `(4) T
 
 </font>
 
-## Lexical measures
-
-Now go to `Let's explore!` > `(3) Lexical measures`. You will see a report with lexical diversity statistics for each speaker; "HDD" and "TTR" (Type Token Ratio). "HDD" is the more reliable of the two measures because it is unaffected by sample length, unlike TTR.
-
-
-## <font color = "red"> PRACTICE 9 - Exploring the "(4) Tags" tab </font>
-<font color = "#911f1f">
-
-Copy and paste the above transcript into the text box, and then go to the `(4) Tags` tab. What percentage of the adult's utterances contain directives?
-
-</font>
 
 Again, the *Advanced Usage* section provides information on how to alter the appearance of the graph, and plot a data point for a particular child.
 
@@ -305,11 +319,10 @@ Again, the *Advanced Usage* section provides information on how to alter the app
 
 ### Zooming
 
-You can **zoom into** the graph by selecting and area with the mouse, and double-clicking on that area. Zooming does not redraw the lines of fit (means and standard deviations).
+You can **zoom into** the graph by selecting and area with the mouse, and double-clicking on that area. You can zoom out again by double-clicking anywhere on the plot. Zooming does not redraw the lines of fit (means and standard deviations).
 
-You can also **trim** the data, by selecting the `trim` slider. This enables you to remove observations for children at the extremes of the age range. After the data is trimmed then the lines of best fit are redrawn (unlike zooming, which does not redraw the lines). Trimming can be useful for some corpora where much older children can skew the lines of best fit. In this case, by removing the older children, we can straighten the lines. It is very unlikely that you will need to trim the younger children.
 
-### Plotting children on the graphs
+### Plotting children on the figures
 
 You also have the ability to plot an individual child on the graph. To do this, select the child from the drop-down, enter the age of the child, and the age of the child at "test" (i.e. the date when the child was recorded).
 
@@ -317,22 +330,14 @@ You also have the ability to plot an individual child on the graph. To do this, 
 
 The age for the child will be calculated, and a red marker corresponding to that child will be shown on the graph.
 
-### Changing the shading of the graphs
-
-This may be achieved using the "shading" slider. Sometimes when there are many datapoints, the graph will be excessively dark, and the shade will need to be lightened.
-
-### Changing the minimum number of utterances
-
-The graphs are drawn using corpora where the children produce a minimum number of utterances. The reason for this is that language measures (MLU, HDD) are not reliable unless the transcript is sufficiently large. The minimum number of utterances is set at 100. It is possible to change this. By increasing the number we are improving the reliability of each data point, but we are reducing the number of datapoints, which may in turn affect the reliability of the lines of fit.
-
 ### Changing the width of the bins
 
 The lines of best fit are created by grouping the children into "bins" of a pre-specified size. This may be altered. By increasing the bin size the lines become smoother, but are likely to fit the data less well.
 
-## <font color = "red"> PRACTICE 10 - Changing the appearnce of graphs" tab </font>
+## <font color = "red"> PRACTICE 9 - Changing the appearance of graphs" tab </font>
 <font color = "#911f1f">
 
-Copy and paste the above transcript into the text box, and then go to the `(2) Syntactic measures` tab, of the `(3) Lexical meausures` tab. Select one of the corpora to draw the graph. Now that the graph is drawn experiment with its appearance by 
+Go to `Extra... > (2) Plot data`. Now that the graph is drawn experiment with its appearance by 
 
 (1) zooming in
 (2) trimming the data at the extremes
@@ -346,17 +351,13 @@ Now select the child participant from the dropdown and plot their data on the gr
 
 ## Extras (1) - Coloured Output CnP
 
-There are two "extra" tabs on the right hand side. The first entitled `(1) Coloured Output CnP` provides a simpler version of the Coloured Output which allows you to copy individual lines and paste them into other document (you may found out that copying and pasting does not work very well for the `(1) Coloured Output` tab. This may be useful if you writing a report, and wish to give examples of the child's language.
+The first item in the `Extras...` tab, `(1) Coloured Output CnP`, provides a simpler version of the Coloured Output which allows you to copy individual lines and paste them into other document (you will found out that copying and pasting does not work very well for the `(1) Coloured Output` tab). This may be useful if you writing a report, and wish to give examples of the child's language.
 
-## Extras (2) - DIY Figure
+# "Nitty Gritty"
 
-The second "extra" tab is called `(2) DIY Figure`. This creates CHILDES plots just like tabs (2) and (3) under `Let's explore`. However, whereas the former are designed to work with the statistics produced by MiMo, the latter allows you to enter the data for a specific child without using MiMo to do your analysis.
+## How words and morphemes are coded
 
-## Nitty Gritty
-
-# How metrics are calculated
-
-Words are assumed to be separated by spaces. If you want to treat two words as a single word, remove the space between them, e.g. `cheese biscuit` > `cheesebiscuit`. You can check that it has been analysed as a single word in the Coloured Output tab.
+Words are assumed to be separated by spaces. If you want to treat two words as a single word, remove the space between them, e.g. `cheese biscuit` > `cheeseBiscuit` (capitals can be used to improve readability, but don't capitalise initial letter). You can check that it has been analysed as a single word in the Coloured Output tab.
 
 Morphemes are slightly trickier. Unfortunately, the software does not do a sophisticated morphological analysis, but instead operates with a simple set of rules.
 
@@ -364,27 +365,27 @@ Morphemes are slightly trickier. Unfortunately, the software does not do a sophi
 2. *Third person singular present tense -s*: if a word is recognised as a third person singular present tense verb, and it ends in `-s` it is coded as having a third person singular present tense morpheme.
 3. *Regular plural -s*: if a word is coded as a plural noun and ends in `-s` it is coded as having a plural suffix.
 
-And that's all there is to it! Though these rules are fairly basic they are very reliable, as all of these morphemes or orthographically encoded in a regular fashion, e.g. all regular past tense endings are written "ed".
+And that's all there is to it! Though these rules are fairly basic they are reliable, as all of these morphemes are orthographically encoded in a regular fashion, e.g. all regular past tense endings are written "ed".
 
-Note that this set of rules is language specific. Therefore MLUs in morphemes for languages other than English will not be accurate. However, there is no reason why further sets of morphological rules for different languages cannot be added to MiMo.
+Note that this set of rules is language specific. Therefore MLUs in morphemes for languages other than English will not be accurate and will be identical to the MLU in words. However, there is no reason why further sets of morphological rules for different languages cannot be added to MiMo.
 
-# How means and standard deviations are drawn
+## How means and standard deviations are drawn
 
 The lines have been drawn via a two-stage process. Firstly, "rolling" means and standard deviations are calculated. This involves ranking observations by age, and taking a set (or "bin") of a pre-specified size (the default size is 10). Then means, and standard deviations are calculated. After that, the bin is shifted upwards by 1. So while the first bin contains observations 1 to 10, the second contains observations 2 to 11. The third bin will contain observations 3 to 12 and so on. Note that when we approach the extremes the bins will become smaller than their prespecified size, which will affect the reliability of the means / standard deviations.
 
 The second stage of the process is slightly more complicated. R uses an algorithm called "loess" to draw a smooth line through the rolling means and standard deviations. "Loess" is complex and difficult to describe without using heavy maths. 
 
-# How the software works
+## How the software works
 
 This section is only for people who understand the coding language `R`!!
 
 The software is written using the *Shiny Apps* `R` package. It loads a variety of libraries. The two most important ones which involve linguistic data are `childesr` for reading data from CHILDES corpora, and `udpipe`, which "parses" the natural language input (i.e. it analyses the structure of sentences and assigns word classes). The software also uses the `korpus` library for calculating the lexical diversity metrics. All of the libraries loaded by the software are listed in the *Acknowledgements* section below.
 
-The code will eventually be hosted on **github**.
+The code is hosted on **github** at [https://github.com/nickriches/MiMo](https://github.com/nickriches/MiMo)
 
 # Acknowledgements
 
-The software is written by [nick riches](nick.riches@newcastle.ac.uk) using the following R packages...
+The software is written by Nick Riches at [nick.riches@newcastle.ac.uk](<mailto:nick.riches@newcastle.ac.uk>) using the following R packages...
 
 Functions for plotting and data manipulation:
 
@@ -427,12 +428,15 @@ Functions for importing grammars from the Universal Dependencies database:
   package version 0.8.2.
   https://CRAN.R-project.org/package=udpipe
   
+Functions for creating the tables, which allow for filtering and sorting.
   
   Yihui Xie, Joe Cheng and Xianying Tan
   (2019). DT: A Wrapper of the JavaScript
   Library 'DataTables'. R package version
   0.6.
   https://CRAN.R-project.org/package=DT
+  
+Functions for automatic language recognition
   
   Hornik K, Mair P, Rauch J, Geiger W,
   Buchta C, Feinerer I (2013). “The textcat
@@ -442,30 +446,34 @@ Functions for importing grammars from the Universal Dependencies database:
   10.18637/jss.v052.i06 (URL:
   https://doi.org/10.18637/jss.v052.i06).
 
+Functions for calculating ages
+
   Jared E. Knowles (2019). eeptools:
   Convenience Functions for Education
   Data. R package version 1.2.2.
   https://CRAN.R-project.org/package=eeptools
   
-  Yihui Xie, Joe Cheng and Xianying Tan
-  (2019). DT: A Wrapper of the JavaScript
-  Library 'DataTables'. R package version
-  0.6.
-  https://CRAN.R-project.org/package=DT
+Functions for calculating running averages
   
   Achim Zeileis and Gabor Grothendieck
   (2005). zoo: S3 Infrastructure for
   Regular and Irregular Time Series.
   Journal of Statistical Software, 14(6),
   1-27. doi:10.18637/jss.v014.i06
+  
+Functions for creating the colour tab
 
   Dean Attali (2017). colourpicker: A
   Colour Picker Tool for Shiny and for
   Selecting Colours in Plots. R package
   version 1.0.
   https://CRAN.R-project.org/package=colourpicker
-  
-And last, but not least, the citation for R itself and Shiny Apps
+
+The project employed norms from the CHILDES collection of corpora available [Talkbank](https://talkbank.org/):
+
+MacWhinney, B. (2000).  The CHILDES Project: Tools for Analyzing Talk. 3rd Edition.  Mahwah, NJ: Lawrence Erlbaum Associate
+
+And last, but not least, here are the citations for R itself and the Shiny Apps frameworks:
   
   R Core Team (2019). R: A language and
   environment for statistical computing. R
