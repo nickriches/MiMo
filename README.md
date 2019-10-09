@@ -4,17 +4,25 @@ Please visit [https://nickriches.shinyapps.io/MiMo/](https://nickriches.shinyapp
 
 NB If the app does not work I may have used up all the bandwidth on my shinyapps account. Apologies in advance for this - I don't have the resources to pay for the full professional account.
 
-This github site contains the code for the MiMo language app. To get this up and running, here's what you need to do...
+**Installing to a shinyapps.io server**
 
-(1) Install R and RStudio on a computer
+This github site contains the code for the MiMo language app. To get this up and running on a shinyapps.io server, here's what you need to do...
 
-(2) Join  [Shiny Apps](https://www.shinyapps.io/) and set up a Free Account.
+(1) Install [R](https://www.r-project.org/) and [RStudio](https://rstudio.com/products/rstudio/download/) on a computer
 
-(3) Create a Shiny Apps Project in RStudio.
+(2) Join [Shiny Apps](https://www.shinyapps.io/) and set up a Free Account.
 
-(4) Copy and paste the code in the App.R file on Github into the App.R file which is created in your Shiny Apps Project.
+(3) Create a Shiny Apps Project in RStudio (New Project > New Directory > Create Shiny Web Appilcation > Create Project)
+
+(4) Download the above files into your Shiny Apps directory (using the green "Download" button), making sure you write over any existing files with the same name.
 
 (5) Upload your App to Shiny Apps (using the blue symbol at the top right hand corner of your screen)
+
+**Running the app locally**
+
+You may also choose to run your app locally without installing to a server. To do this, (a) make sure that all of the files in the .www folder are copied and pasted into the main folder, (b) select all of the text in the app.R file, and run.
+
+**Further information**
 
 For more resources on how to use Shiny Apps go to [https://shiny.rstudio.com/tutorial/](https://shiny.rstudio.com/tutorial/)
 
