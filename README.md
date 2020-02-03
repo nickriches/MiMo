@@ -36,7 +36,7 @@ For more resources on how to use Shiny Apps go to [https://shiny.rstudio.com/tut
 
 **Feedback**
 
-If you have any questions or queries, please obtain a GitHub account, and raise a ticket.
+If you have any questions or queries, please obtain a GitHub account, and raise an issue using the ``Issue`` tab above. I am open to suggestions on how to improve and develop the app (for example, by adding adequate morphological parsing for languages other than English), but please note that the amount of time I can dedicate to this is limited. Please also note that I am a relative R newbie, and there is a lot of room for refinement of the source code.
 
 **Acknowledgements**
 
