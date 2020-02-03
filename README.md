@@ -14,7 +14,7 @@ This GitHub site contains the code for the MiMo language app. To get this up and
 
 (2) Join [Shiny Apps](https://www.shinyapps.io/) and set up a Free Account.
 
-(3) Create a Shiny Apps Project in RStudio (New Project > New Directory > Create Shiny Web Appilcation > Create Project)
+(3) Create a Shiny Apps Project in RStudio ``New Project > New Directory > Create Shiny Web Application > Create Project``
 
 (4) Download the above files into your Shiny Apps directory (using the green "Download" button), making sure you write over any existing files with the same name.
 
