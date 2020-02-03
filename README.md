@@ -34,6 +34,10 @@ You may also choose to run your app locally on PC, Mac or Linux computer, withou
 
 For more resources on how to use Shiny Apps go to [https://shiny.rstudio.com/tutorial/](https://shiny.rstudio.com/tutorial/)
 
+**Feedback**
+
+If you have any questions or queries, please obtain a GitHub account, and raise a ticket.
+
 **Acknowledgements**
 
 Full acknowledgements are provided in the app itself. However, I should briefly mention Newcastle University, for supporting me in the development of this app, the RStudio consortium for creating the fantastic ShinyApps framework, and Brian MacWhinney's CLaN software (developed with Leonid Spektor) and the Talkbank repository, for providing normative data.
