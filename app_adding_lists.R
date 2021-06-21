@@ -1,8 +1,4 @@
 
-# if (!require("pacman")) install.packages("pacman")
-# pacman::p_load(shiny, knitr, tidyverse, readtext, udpipe, tools, DT, textcat,
-#                eeptools, childesr, zoo, koRpus, koRpus.lang.en, colourpicker)
-
 library(shiny)
 library(knitr) # To prepare Rmarkdown instructions
 library(tidyverse) # For data manipulation
@@ -16,7 +12,7 @@ library(childesr) # Look up CHILDES norms
 library(zoo) # For the time series analysis.
 library(koRpus) # To obtain lexical diversity measures
 library(koRpus.lang.en) # Corpus English Language
-library(colourpicker)
+library(colourpicker) 
 
 colours <- read_csv("colours.csv")
 
@@ -111,24 +107,32 @@ shinyApp(
                           
                           #(2) Syntactic measures tab panel-----
                           tabPanel("(2) Syntactic measures",
-                                   h3("Table will take a few seconds to appear/refresh..."),
-                                   DT::dataTableOutput("table_summaries"),
-                                   br()
-                          ),  # end of tab panel ----
-                          
+                                     h3("Table will take a few seconds to appear/refresh..."),
+                                     DT::dataTableOutput("table_summaries"),
+                                     br()
+                                  ),  # end of tab panel ----
+
                           
                           
                           
                           
                           #(3) Lexical measures tab panel-----
                           tabPanel("(3) Lexical measures",
-                                   h3("Table will take a few seconds to appear/refresh..."),
-                                   DT::dataTableOutput("table_summaries2")
+                                     h3("Table will take a few seconds to appear/refresh..."),
+                                     DT::dataTableOutput("table_summaries2")
                           ), # end of tab panel
                           
+                          #(4) Word lists -----
+                          tabPanel("(4) Word lists",
+                                   
+                                   mainPanel(
+                                     DT::dataTableOutput("table_words")
+                                   )
+                                   
+                          ), # end of tags tabpanel
                           
-                          #(4) Tags -----
-                          tabPanel("(4) Tags",
+                          #(5) Tags -----
+                          tabPanel("(5) Tags",
                                    
                                    mainPanel(
                                      DT::dataTableOutput("tag_table")
@@ -354,10 +358,6 @@ shinyApp(
       lang <- tolower(lang)
       
       
-        
-      # THIS LINE IS A BREAK LINE
-      # browser(); one <- 1; one <- 1; one <- 1; one <- 1; one <-1
-     
       
       str_split_keep_delimiter <- function(string, delV){ #string and delimiter vector
         for(i in 1:length(delV)){
@@ -486,18 +486,8 @@ shinyApp(
       }
       
       
-      remove_comments <- function(str){
-        str <- str_replace_all(str, "[\x28][^\x28]*[\x29]", "")
-        return(str)
-      }
       
-      remove_tags <- function(str){
-        str <- str_replace_all(str, "\\[[^\\[]*\\]", "")
-        return(str)
-      }
-      
-      
-      Num_Words <- count_words_using_spaces(remove_non_alphanumeric(remove_comments(remove_tags(text$text))))
+      Num_Words <- count_words_using_spaces(remove_non_alphanumeric(text$text))
       
       text$comments <- sapply(text$text, extract_comments_as_string)
       
@@ -912,7 +902,93 @@ shinyApp(
       return(df)
     })
     
+    # table_words -----
+
+    table_words <- reactive({
     
+    df <- table()
+    
+    browser(); x <- 1; x <- 1; x <- 1; x <- 1; x <- 1
+
+      remove_has <- functions(x){
+        return(str_extract_all(x, "has"))
+      }
+
+      has_class <- sapply(df$has_class, remove_has)
+
+      splice <- function(string_x, string_y){
+        vector_x <- unlist(str_extract_all(string_x, "[^\x20]+"))
+        vector_y <- unlist(str_extract_all(string_y, "[^\x20]+"))
+        df <- as.data.frame(cbind(vector_x, vector_y))
+        names(df) <- c("x", "y")
+        df$combined <- paste0(df$y, "=", df$x)
+        result <- paste0(df$combined, collapse = " ")
+        return(result)
+      }
+
+      df$spliced <- mapply(df$has_class,
+                          df$text_comments_extracted,
+                          splice)
+      
+      speaker <- unique(df$speaker)
+      
+      df <- data.frame(speaker = character(),
+                       word_class = character(),
+                       word_list = character()
+                      )
+      
+      get_words <- function(string, class){
+        # string <- "Dog=noun Bear=noun Bear=noun give=verb"
+        # class <- "noun"
+        words <- unlist(str_extract_all(string, paste0("[^\x20]+=", class)))
+        words <- str_replace_all(words, "=[^\x20]+", "")
+        df <- data.frame(word = character(length(words)))
+        df$words <- words
+        df %>% group_by(words) %>% summarise(n = n()) %>% arrange(-n) -> df  
+        df$word_n <- paste(df$words, df$n)
+        return(df$word_n)
+      }
+      
+      
+      for(i in 1:length(speaker)){
+        
+      words <- paste0(df$spliced[which(df$speaker == speaker[i])], collapse = " ")
+        
+      # classes <- str_extract_all(words, "=[^\x20]+")
+      # classes <- str_extract_all(classes, "[^=]")
+      # classes <- str_to_sentence(classes)
+        
+      classes <- c("verb", "aux", "adv",
+                   "noun", "pron", "det",
+                   "prep", "cconj", "sconj")
+      
+        for(i in 1:length(classes)){
+          
+          class <- classes[i]
+          
+          words <- get_words(words, class)
+          
+          df2 <- data.frame(speaker = character(1),
+                           word_class = character(1),
+                           word_list = character(1)
+                           )
+          
+          df2$speaker <- speaker[i]
+          df2$word_class <- class
+          df2$word_list <- words
+          
+          df <- rbind(df, df2)
+          
+        }
+      
+      
+      
+      }
+
+      return(df)
+
+    })
+
     
     # df_childes_DIY ----
     
@@ -1028,7 +1104,7 @@ shinyApp(
       return(max(df_childes_DIY()$target_child_age, na.rm = TRUE))
     })
     
-    
+
     # Speaker_age----
     speaker_age <- reactive({
       age <- age_calc(input$dob3, input$dot3, units = "months", precise = TRUE)
@@ -1042,7 +1118,7 @@ shinyApp(
     
     output$Rmarkdown_instructions <- renderUI({
       # HTML(rmarkdown::render('Rmarkdown_instructions.Rmd'))
-      HTML(markdown::markdownToHTML(knit('Rmarkdown_instructions.Rmd', quiet = TRUE)))
+      HTML(markdown::markdownToHTML(knit('Rmarkdown_instructions_reduced.Rmd', quiet = TRUE)))
       # includeHTML("Rmarkdown_instructions.html")
     })
     
@@ -1063,7 +1139,7 @@ shinyApp(
                 escape = FALSE,
                 options = list(paging = FALSE, autoWidth = TRUE, searching = TRUE,
                                search = list(regex = TRUE, scrollX = TRUE)
-                )
+                              )
       ) %>% formatStyle(columns = c(2), width='100px') %>% 
         formatStyle("features_coloured","white-space"="nowrap") %>%
         formatStyle("sentence_coloured","white-space"="nowrap") %>%
@@ -1155,6 +1231,14 @@ shinyApp(
                   TTR: Type-Token Ratio')
       ) 
     })
+    
+    #table_words ----
+    
+    output$table_words = DT::renderDataTable({
+      datatable(table_words())
+    })
+    
+    
     
     # (4) tag_table  ----
     output$tag_table = DT::renderDataTable({
@@ -1400,7 +1484,7 @@ shinyApp(
     })
     
     
-    
+
     
     # DIY_plot -----
     output$DIY_plot <- renderPlot({
@@ -1452,7 +1536,7 @@ shinyApp(
                            input$variable3 == "ttr" ~ "Type Token Ratio",
                            input$variable3 == "hdd" ~ "HDD")
       
-      g <- g + labs(title = paste(dv_name, "for CHILDES collection", input$collection3),
+      g <- g + labs(title = paste("MLU in morphemes for CHILDES collection", input$collection3),
                     x = "Age (Months;Years)", y = dv_name)
       
       # Activate this routine if speaker has been selected, and mlum has been chosen as input$variable
@@ -1481,7 +1565,7 @@ shinyApp(
       
     }) # end of output$all plot <- renderPlot...
     
-    
+
     
     output$age = renderUI({
       
@@ -1498,7 +1582,6 @@ shinyApp(
   }
   
 )
-
 
 
 

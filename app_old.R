@@ -1,8 +1,4 @@
 
-# if (!require("pacman")) install.packages("pacman")
-# pacman::p_load(shiny, knitr, tidyverse, readtext, udpipe, tools, DT, textcat,
-#                eeptools, childesr, zoo, koRpus, koRpus.lang.en, colourpicker)
-
 library(shiny)
 library(knitr) # To prepare Rmarkdown instructions
 library(tidyverse) # For data manipulation
@@ -16,9 +12,9 @@ library(childesr) # Look up CHILDES norms
 library(zoo) # For the time series analysis.
 library(koRpus) # To obtain lexical diversity measures
 library(koRpus.lang.en) # Corpus English Language
-library(colourpicker)
+library(colourpicker) 
 
-colours <- read_csv("colours.csv")
+
 
 shinyApp(
   
@@ -111,19 +107,19 @@ shinyApp(
                           
                           #(2) Syntactic measures tab panel-----
                           tabPanel("(2) Syntactic measures",
-                                   h3("Table will take a few seconds to appear/refresh..."),
-                                   DT::dataTableOutput("table_summaries"),
-                                   br()
-                          ),  # end of tab panel ----
-                          
+                                     h3("Table will take a few seconds to appear/refresh..."),
+                                     DT::dataTableOutput("table_summaries"),
+                                     br()
+                                  ),  # end of tab panel ----
+
                           
                           
                           
                           
                           #(3) Lexical measures tab panel-----
                           tabPanel("(3) Lexical measures",
-                                   h3("Table will take a few seconds to appear/refresh..."),
-                                   DT::dataTableOutput("table_summaries2")
+                                     h3("Table will take a few seconds to appear/refresh..."),
+                                     DT::dataTableOutput("table_summaries2")
                           ), # end of tab panel
                           
                           
@@ -146,44 +142,133 @@ shinyApp(
                ),
                
                # Colour tab panel----
-               tabPanel("Colours", 
-                        
-                        selectInput(inputId = "colour_scheme",
-                                    label = h3("Select colour scheme"), 
-                                    choices = list("All colours" = 2,
-                                                   "Verb-related words only" = 3,
-                                                   "Noun-related words only" = 4,
-                                                   "Linking words (conjunctions and Prepositions)" = 5), 
-                                    selected = 2),
+               tabPanel("Colours",
                         
                         h3("Widgets contain hexadecimal colour codes.
                                    Colours may be conveniently copied and pasted by copying and pasting these codes."),
                         
                         br(),
-                        h3("Word classes in the Verb Complex (sometimes called Verb Phrase)"),
-                        htmlOutput("colour_picker_verb"),
-                        htmlOutput("colour_picker_copula"),
-                        htmlOutput("colour_picker_auxiliary"),
-                        htmlOutput("colour_picker_particle"),
-                        htmlOutput("colour_picker_advb"),
-                        br(),
-                        h3("Word classes in the Noun Phrase"),
-                        htmlOutput("colour_picker_noun"),
-                        htmlOutput("colour_picker_det"),
-                        htmlOutput("colour_picker_adj"),
-                        htmlOutput("colour_picker_pron"),
-                        br(),
-                        h3("Linking words"),
-                        htmlOutput("colour_picker_prep"),
-                        htmlOutput("colour_picker_sub"),
-                        htmlOutput("colour_picker_coord"),
-                        br(),
-                        h3("Other"),
-                        htmlOutput("colour_picker_punct"),
-                        htmlOutput("colour_picker_interjection")
+                        
+                        h3("Verb Complex / Verb Phrase"), 
+                        
+                        colourInput(
+                          inputId = "VERB_colour",
+                          label = "Main Verb (label = VERB)",
+                          value = "#FFAB94"
+                          # showColour = "background"
+                        ),
+                        
+                        colourInput(
+                          inputId = "COPULA_colour",
+                          label = "Copula (label = COP.)",
+                          value = "#FFAB94"
+                          # showColour = "background"
+                        ),
+                        
+                        colourInput(
+                          inputId = "AUXILIARY_colour",
+                          label = "Auxiliary Verb (label = AUX.)",
+                          value = "#FAD4CB"
+                          # showColour = "background"
+                        ),
+                        
+                        colourInput(
+                          inputId = "PARTICLE_colour",
+                          label = "Particle e.g. \"to\" in \"to go\" (label = PART.)",
+                          value = "#FAD4CB"
+                          # showColour = "background"
+                        ),
+                        
+                        colourInput(
+                          inputId = "ADV_colour",
+                          label = "Adverb (label = ADV.)",
+                          value = "#FAD4CB"
+                          # showColour = "background"
+                        ),
+                        
+                        hr(),
+                        
+                        h3("Noun Phrase"), 
+                        
+                        colourInput(
+                          inputId = "NOUN_colour",
+                          label = "Noun (label = NOUN)",
+                          value = "#B6B6F5"
+                          # showColour = "background"
+                        ),
                         
                         
-               ), # End of tabPanel "Colors"
+                        colourInput(
+                          inputId = "DET_colour",
+                          label = "Determiner (label = DET., or DET.poss if possessive)",
+                          value = "#ADFFFF"
+                          # showColour = "background"
+                        ),
+                        
+                        colourInput(
+                          inputId = "ADJ_colour",
+                          label = "Adjective (label = ADJ.)",
+                          value = "#ADFFFF"
+                          # showColour = "background"
+                        ),
+                        
+                        colourInput(
+                          inputId = "PRON_colour",
+                          label = "Pronoun (label = PRON.)",
+                          value = "#99FF69"
+                          # showColour = "background"
+                        ),
+                        
+                        hr(),
+                        
+                        h3("Prepositions"),
+                        
+                        colourInput(
+                          inputId = "PREP_colour",
+                          label = "Prepositions (label = PREP.)",
+                          value = "#FFFF52"
+                          # showColour = "background"
+                        ),
+                        
+                        hr(),
+                        
+                        h3("Linking Words"),
+                        
+                        colourInput(
+                          inputId = "SUB_colour",
+                          label = "Subordinating Conjunction (label = SCONJ.)",
+                          value = "#FCAD46"
+                          # showColour = "background"
+                        ),
+                        
+                        colourInput(
+                          inputId = "COORD_colour",
+                          label = "Coordinating Conjunction (label = CCONJ.)",
+                          value = "#FFCD7D"
+                          # showColour = "background"
+                        ),
+                        
+                        hr(),
+                        
+                        h3("Others"),
+                        
+                        colourInput(
+                          inputId = "PUNCT_colour",
+                          label = "Punctuation Character (label = PUNCT.)",
+                          value = "#eeeedd"
+                          # showColour = "background"
+                        ),
+                        
+                        colourInput(
+                          inputId = "INTERJECTION_colour",
+                          label = "Interjection (label = INTJ.)",
+                          value = "#C29A72"
+                          # showColour = "background"
+                        )
+                        
+                        
+                        
+               ),
                
                
                # Extra... nav bar ----
@@ -354,10 +439,6 @@ shinyApp(
       lang <- tolower(lang)
       
       
-        
-      # THIS LINE IS A BREAK LINE
-      # browser(); one <- 1; one <- 1; one <- 1; one <- 1; one <-1
-     
       
       str_split_keep_delimiter <- function(string, delV){ #string and delimiter vector
         for(i in 1:length(delV)){
@@ -486,18 +567,8 @@ shinyApp(
       }
       
       
-      remove_comments <- function(str){
-        str <- str_replace_all(str, "[\x28][^\x28]*[\x29]", "")
-        return(str)
-      }
       
-      remove_tags <- function(str){
-        str <- str_replace_all(str, "\\[[^\\[]*\\]", "")
-        return(str)
-      }
-      
-      
-      Num_Words <- count_words_using_spaces(remove_non_alphanumeric(remove_comments(remove_tags(text$text))))
+      Num_Words <- count_words_using_spaces(remove_non_alphanumeric(text$text))
       
       text$comments <- sapply(text$text, extract_comments_as_string)
       
@@ -626,59 +697,39 @@ shinyApp(
       }
       
       
-      
-      if(is.null(input$VERB_colour)) {VERB_colour <- "#FFAB94"} else {VERB_colour <- input$VERB_colour}
-      if(is.null(input$COPULA_colour)) {COPULA_colour <- "#FFAB94"} else {COPULA_colour <- input$COPULA_colour}
-      if(is.null(input$AUXILIARY_colour)) {AUXILIARY_colour <- "#FAD4CB"} else {AUXILIARY_colour <- input$AUXILIARY_colour}
-      if(is.null(input$PARTICLE_colour)) {PARTICLE_colour <- "#FAD4CB"} else {PARTICLE_colour <- input$PARTICLE_colour}
-      if(is.null(input$ADVB_colour)) {ADVB_colour <- "#FAD4CB"} else {ADVB_colour <- input$ADVB_colour}
-      if(is.null(input$NOUN_colour)) {NOUN_colour <- "#B6B6F5"} else {NOUN_colour <- input$NOUN_colour}
-      if(is.null(input$DET_colour)) {DET_colour <- "#ADFFFF"} else {DET_colour <- input$DET_colour}
-      if(is.null(input$ADJ_colour)) {ADJ_colour <- "#ADFFFF"} else {ADJ_colour <- input$ADJ_colour}
-      if(is.null(input$PRON_colour)) {PRON_colour <- "#99FF69"} else {PRON_colour <- input$PRON_colour}
-      if(is.null(input$PREP_colour)) {PREP_colour <- "#FFFF52"} else {PREP_colour <- input$PREP_colour}
-      if(is.null(input$SUB_colour)) {SUB_colour <- "#FCAD46"} else {SUB_colour <- input$SUB_colour}
-      if(is.null(input$COORD_colour)) {COORD_colour <- "#FFCD7D"} else {COORD_colour <- input$COORD_colour}
-      if(is.null(input$PUNCT_colour)) {PUNCT_colour <- "#eeeedd"} else {PUNCT_colour <- input$PUNCT_colour}
-      if(is.null(input$INTERJECTION_colour)) {INTERJECTION_colour <- "#C29A72"} else {INTERJECTION_colour <- input$INTERJECTION_colour}
-      
-      
       highlight_wc <- function(string, wc){
-        if(is.na(wc)){return(string)}
-        # red (original colours - user may change)
-        else if(wc == "VERB"){result <- add_tool_tip(highlight(paste0("<b>",string,"</b>"), VERB_colour), "VERB")}
-        else if(wc == "COPULA"){result <- add_tool_tip(highlight(paste0("<b>", string, "</b>"), COPULA_colour), "COPULA")}
+        # red
+        if(wc == "VERB"){result <- add_tool_tip(highlight(paste0("<b>",string,"</b>"), input$VERB_colour), "VERB")}
+        else if(wc == "COPULA"){result <- add_tool_tip(highlight(paste0("<b>", string, "</b>"), input$COPULA_colour), "COPULA")}
         # orange
-        else if(wc == "SCONJ"){result <- add_tool_tip(highlight(string, SUB_colour), "SCONJ.")}
+        else if(wc == "SCONJ"){result <- add_tool_tip(highlight(string, input$SUB_colour), "SCONJ.")}
         # light orange
-        else if(wc == "CCONJ"){result <- add_tool_tip(highlight(string, COORD_colour), "CCONJ.")}
+        else if(wc == "CCONJ"){result <- add_tool_tip(highlight(string, input$COORD_colour), "CCONJ.")}
         # green
-        else if(wc == "PRON"){result <- add_tool_tip(highlight(string, PRON_colour), "PRON.")}
+        else if(wc == "PRON"){result <- add_tool_tip(highlight(string, input$PRON_colour), "PRON.")}
         # pink
-        else if(wc == "AUX"){result <- add_tool_tip(highlight(string, AUXILIARY_colour), "AUX.")}
-        else if(wc == "ADV"){result <- add_tool_tip(highlight(string, ADVB_colour), "ADV.")}
-        else if(wc == "PART"){result <- add_tool_tip(highlight(string, PARTICLE_colour), "PARTICLE")}
+        else if(wc == "AUX"){result <- add_tool_tip(highlight(string, input$AUXILIARY_colour), "AUX.")}
+        else if(wc == "ADV"){result <- add_tool_tip(highlight(string, input$ADV_colour), "ADV.")}
+        else if(wc == "PART"){result <- add_tool_tip(highlight(string, input$PARTICLE_colour), "PARTICLE")}
         # dark blue
-        else if(wc == "NOUN"){result <- add_tool_tip(highlight(string, NOUN_colour), "NOUN")}
-        else if(wc == "PROPN"){result <- add_tool_tip(highlight(string, NOUN_colour), "PROPN")}
+        else if(wc == "NOUN"){result <- add_tool_tip(highlight(string, input$NOUN_colour), "NOUN")}
+        else if(wc == "PROPN"){result <- add_tool_tip(highlight(string, input$NOUN_colour), "PROPN")}
         # cyan
-        else if(wc == "DET"){result <- add_tool_tip(highlight(string, DET_colour), "DET.")}
-        else if(wc == "DET.poss"){result <- add_tool_tip(highlight(string, DET_colour), "DET.poss")}
-        else if(wc == "ADJ"){result <- add_tool_tip(highlight(string, ADJ_colour), "ADJ.")}
-        else if(wc == "NUM"){result <- add_tool_tip(highlight(string, DET_colour), "NUM.")}
+        else if(wc == "DET"){result <- add_tool_tip(highlight(string, input$DET_colour), "DET.")}
+        else if(wc == "DET.poss"){result <- add_tool_tip(highlight(string, input$DET_colour), "DET.poss")}
+        else if(wc == "ADJ"){result <- add_tool_tip(highlight(string, input$ADJ_colour), "ADJ.")}
+        else if(wc == "NUM"){result <- add_tool_tip(highlight(string, input$DET_colour), "NUM.")}
         # brown
-        else if(wc == "INTJ"){result <- add_tool_tip(highlight(string, INTERJECTION_colour), "INTJ")}
+        else if(wc == "INTJ"){result <- add_tool_tip(highlight(string, input$INTERJECTION_colour), "INTJ")}
         # yellow
-        else if(wc == "ADP"){result <- add_tool_tip(highlight(string, PREP_colour), "PREP.")}
+        else if(wc == "ADP"){result <- add_tool_tip(highlight(string, input$PREP_colour), "PREP.")}
         # grey
-        else if(wc == "PUNCT"){result <- add_tool_tip(highlight(string, PUNCT_colour), "PUNCT.")}
+        else if(wc == "PUNCT"){result <- add_tool_tip(highlight(string, input$PUNCT_colour), "PUNCT.")}
         else if(wc == "X"){result <- add_tool_tip(highlight(string, "#b8b894"), "X")}
         else if(wc == "SYM"){result <- add_tool_tip(highlight(string, "#b8b894"), "SYM")}
         else{result <- string}
         return(result)
       }
-      
-      
       
       text %>% filter(!is.na(upos)) -> text
       
@@ -912,7 +963,7 @@ shinyApp(
       return(df)
     })
     
-    
+
     
     # df_childes_DIY ----
     
@@ -1028,7 +1079,7 @@ shinyApp(
       return(max(df_childes_DIY()$target_child_age, na.rm = TRUE))
     })
     
-    
+
     # Speaker_age----
     speaker_age <- reactive({
       age <- age_calc(input$dob3, input$dot3, units = "months", precise = TRUE)
@@ -1063,7 +1114,7 @@ shinyApp(
                 escape = FALSE,
                 options = list(paging = FALSE, autoWidth = TRUE, searching = TRUE,
                                search = list(regex = TRUE, scrollX = TRUE)
-                )
+                              )
       ) %>% formatStyle(columns = c(2), width='100px') %>% 
         formatStyle("features_coloured","white-space"="nowrap") %>%
         formatStyle("sentence_coloured","white-space"="nowrap") %>%
@@ -1185,203 +1236,6 @@ shinyApp(
     })
     
     
-    
-    # colours ----
-    
-    verb_col <- reactive({
-      colour <- colours[1, as.numeric(input$colour_scheme)]
-      return(colour)
-    })
-    
-    copula_col <- reactive({
-      colour <- colours[2, as.numeric(input$colour_scheme)]
-      return(colour)
-    })
-    
-    auxiliary_col <- reactive({
-      colour <- colours[3, as.numeric(input$colour_scheme)]
-      return(colour)
-    })
-    
-    particle_col <- reactive({
-      colour <- colours[4, as.numeric(input$colour_scheme)]
-      return(colour)
-    })
-    
-    advb_col <- reactive({
-      colour <- colours[5, as.numeric(input$colour_scheme)]
-      return(colour)
-    })
-    
-    noun_col <- reactive({
-      colour <- colours[6, as.numeric(input$colour_scheme)]
-      return(colour)
-    })
-    
-    det_col <- reactive({
-      colour <- colours[7, as.numeric(input$colour_scheme)]
-      return(colour)
-    })
-    
-    adj_col <- reactive({
-      colour <- colours[8, as.numeric(input$colour_scheme)]
-      return(colour)
-    })
-    
-    pron_col <- reactive({
-      colour <- colours[9, as.numeric(input$colour_scheme)]
-      return(colour)
-    })
-    
-    prep_col <- reactive({
-      colour <- colours[10, as.numeric(input$colour_scheme)]
-      return(colour)
-    })
-    
-    sub_col <- reactive({
-      colour <- colours[11, as.numeric(input$colour_scheme)]
-      return(colour)
-    })
-    
-    coord_col <- reactive({
-      colour <- colours[12, as.numeric(input$colour_scheme)]
-      return(colour)
-    })
-    
-    punct_col <- reactive({
-      colour <- colours[13, as.numeric(input$colour_scheme)]
-      return(colour)
-    })
-    
-    interjection_col <- reactive({
-      colour <- colours[14, as.numeric(input$colour_scheme)]
-      return(colour)
-    })
-    
-    output$colour_picker_verb <- renderUI({
-      colourpicker::colourInput(
-        inputId = "VERB_colour",
-        label = "Main Verb (label = VERB)",
-        value = verb_col()
-      )
-    })
-    
-    output$colour_picker_copula <- renderUI({
-      colourpicker::colourInput(
-        inputId = "COPULA_colour",
-        label = "Copula (label = COPULA)",
-        value = copula_col()
-      )
-    })
-    
-    output$colour_picker_auxiliary <- renderUI({
-      colourpicker::colourInput(
-        inputId = "AUXILIARY_colour",
-        label = "Auxiliary verb (label = AUXILIARY)",
-        value = auxiliary_col()
-      )
-    })
-    
-    output$colour_picker_particle <- renderUI({
-      colourpicker::colourInput(
-        inputId = "PARTICLE_colour",
-        label = "Verb particle (label = PARTICLE)",
-        value = particle_col()
-      )
-    })
-    
-    output$colour_picker_advb <- renderUI({
-      colourpicker::colourInput(
-        inputId = "ADVB_colour",
-        label = "Adverb (label = ADVB)",
-        value = advb_col()
-      )
-    })
-    
-    output$colour_picker_noun <- renderUI({
-      colourpicker::colourInput(
-        inputId = "NOUN_colour",
-        label = "Noun (label = NOUN)",
-        value = noun_col()
-      )
-    })
-    
-    
-    output$colour_picker_det <- renderUI({
-      colourpicker::colourInput(
-        inputId = "DET_colour",
-        label = "Determiner (label = DET)",
-        value = det_col()
-      )
-    })
-    
-    
-    output$colour_picker_adj <- renderUI({
-      colourpicker::colourInput(
-        inputId = "ADJ_colour",
-        label = "Adjective (label = ADJ)",
-        value = adj_col()
-      )
-    })
-    
-    
-    output$colour_picker_pron <- renderUI({
-      colourpicker::colourInput(
-        inputId = "PRON_colour",
-        label = "Pronoun (label = PRON)",
-        value = pron_col()
-      )
-    })
-    
-    output$colour_picker_prep <- renderUI({
-      colourpicker::colourInput(
-        inputId = "PREP_colour",
-        label = "Preposition (label = PREP)",
-        value = prep_col()
-      )
-    })
-    
-    output$colour_picker_sub <- renderUI({
-      colourpicker::colourInput(
-        inputId = "SUB_colour",
-        label = "Subordinator (label = SUB)",
-        value = sub_col()
-      )
-    })
-    
-    output$colour_picker_coord <- renderUI({
-      colourpicker::colourInput(
-        inputId = "COORD_colour",
-        label = "Coordinator (label = COORD)",
-        value = coord_col()
-      )
-    })
-    
-    output$colour_picker_punct <- renderUI({
-      colourpicker::colourInput(
-        inputId = "PUNCT_colour",
-        label = "Punctuation (label = PUNCT)",
-        value = punct_col()
-      )
-    })
-    
-    output$colour_picker_interjection <- renderUI({
-      colourpicker::colourInput(
-        inputId = "INTERJECTION_colour",
-        label = "Interjection (label = INTERJECTION)",
-        value = interjection_col()
-      )
-    })
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     # ranges and observeEvent for interactive plots ----
     
     ranges <- reactiveValues(x = NULL, y = NULL)
@@ -1400,7 +1254,7 @@ shinyApp(
     })
     
     
-    
+
     
     # DIY_plot -----
     output$DIY_plot <- renderPlot({
@@ -1452,7 +1306,7 @@ shinyApp(
                            input$variable3 == "ttr" ~ "Type Token Ratio",
                            input$variable3 == "hdd" ~ "HDD")
       
-      g <- g + labs(title = paste(dv_name, "for CHILDES collection", input$collection3),
+      g <- g + labs(title = paste("MLU in morphemes for CHILDES collection", input$collection3),
                     x = "Age (Months;Years)", y = dv_name)
       
       # Activate this routine if speaker has been selected, and mlum has been chosen as input$variable
@@ -1481,7 +1335,7 @@ shinyApp(
       
     }) # end of output$all plot <- renderPlot...
     
-    
+
     
     output$age = renderUI({
       
@@ -1498,7 +1352,6 @@ shinyApp(
   }
   
 )
-
 
 
 
