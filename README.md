@@ -1,8 +1,8 @@
 # MiMo
 
-![](/Users/nickriches/Documents/GitHub/MiMo/mimo.png)
+![MiMo](/Users/nickriches/Documents/GitHub/MiMo/mimo.png)
 
-[![Everything Is AWESOME](youtube.png)](https://www.youtube.com/watch?v=PeZIbqfi6Do "MiMo")
+[![MiMo](youtube.png)](https://www.youtube.com/watch?v=PeZIbqfi6Do "MiMo")
 
 
 
