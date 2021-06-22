@@ -1,8 +1,12 @@
-# MiMo
+![](/Users/nickriches/Documents/GitHub/MiMo/mimo.png)
 
-To try out the app, please visit [https://nickriches.shinyapps.io/MiMo/](https://nickriches.shinyapps.io/MiMo/). There are full instructions included in the app. It should only take about ten minutes to do some basic analysis.
+[![Everything Is AWESOME](youtube.png)](https://www.youtube.com/watch?v=PeZIbqfi6Do "MiMo")
 
-Please note that the app is running on my personal ShinyApps account, and if there is a lot of demand for the app, it may cease to function at this web address. Apologies in advance for this - I do not currently have the resources to pay for the full professional account.
+
+
+To try out the app, please visit [https://hass-shiny-apps.shinyapps.io/MiMo/](https://hass-shiny-apps.shinyapps.io/MiMo/), [https://newcastlelanguagelab.shinyapps.io/MiMo/](https://newcastlelanguagelab.shinyapps.io/MiMo/) or [https://nickriches.shinyapps.io/MiMo/](https://nickriches.shinyapps.io/MiMo/). There are detailed instructions on the first page of the app, along with exercises. It should only take about <u>ten minutes</u> to read through the instructions and do some basic analysis.
+
+Please note that that all of these servers have bandwidth restrictions. If there is a high demand this may affect usability. 
 
 By far the best way to run the app is to install it to your own server...
 
